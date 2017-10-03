@@ -35,7 +35,7 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated{
-    if (![FBSDKAccessToken currentAccessToken] && !self.haveSeenViewDidAppear){
+    if ((![[FBSDKAccessToken currentAccessToken] hasGranted:@"public_profile"] || ![[FBSDKAccessToken currentAccessToken] hasGranted:@"user_photos"]) && !self.haveSeenViewDidAppear){
         self.haveSeenViewDidAppear = YES;
         
         //Workaround so that we dont include FBSDKLoginKit
