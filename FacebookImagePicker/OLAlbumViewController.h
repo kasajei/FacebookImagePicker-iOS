@@ -18,6 +18,7 @@
 @optional
 - (void)albumViewController:(OLAlbumViewController *)albumController didSelectImage:(OLFacebookImage *)image;
 - (BOOL)albumViewController:(OLAlbumViewController *)albumController shouldSelectImage:(OLFacebookImage *)image;
+- (void)albumViewControllerRefreshAccessToken:(OLAlbumViewController *)albumController;
 @end
 
 @interface OLAlbumViewController : UIViewController

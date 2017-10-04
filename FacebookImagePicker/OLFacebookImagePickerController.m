@@ -34,7 +34,13 @@
     return self;
 }
 
+
 - (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [self permissionRequest];
+}
+
+- (void)permissionRequest{
     if ((![[FBSDKAccessToken currentAccessToken] hasGranted:@"public_profile"] || ![[FBSDKAccessToken currentAccessToken] hasGranted:@"user_photos"]) && !self.haveSeenViewDidAppear){
         self.haveSeenViewDidAppear = YES;
         
@@ -116,6 +122,10 @@
     else{
         return YES;
     }
+}
+
+- (void)albumViewControllerRefreshAccessToken:(OLAlbumViewController *)albumController{
+    [self permissionRequest];
 }
 
 @end

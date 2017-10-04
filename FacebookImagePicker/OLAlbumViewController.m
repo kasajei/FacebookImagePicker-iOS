@@ -182,6 +182,15 @@ static const NSUInteger kAlbumPreviewImageSize = 78;
             self.tableView.tableFooterView = nil;
         }
         
+        
+        if (self.albums.count == 0 && !nextPageRequest) {
+            [FBSDKAccessToken refreshCurrentAccessToken:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+                if ([self.delegate respondsToSelector:@selector(albumViewControllerRefreshAccessToken:)]){
+                    [self.delegate albumViewControllerRefreshAccessToken:self];
+                }
+            }];
+        }
+
     }];
 }
 
