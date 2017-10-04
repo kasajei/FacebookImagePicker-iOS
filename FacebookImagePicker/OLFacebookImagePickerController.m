@@ -61,6 +61,9 @@
                 } else {
                     [self showAlbumList];
                 }
+                if ([self.delegate respondsToSelector:@selector(facebookImagePicker:fbLoginResult:error:)]){
+                    [self.delegate facebookImagePicker:self fbLoginResult:result error:error];
+                }
             });
         }
     }

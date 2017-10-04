@@ -18,6 +18,7 @@
 @optional
 - (void)facebookImagePicker:(OLFacebookImagePickerController *)imagePicker didSelectImage:(OLFacebookImage *)image;
 - (BOOL)facebookImagePicker:(OLFacebookImagePickerController *)imagePicker shouldSelectImage:(OLFacebookImage *)image;
+- (void)facebookImagePicker:(OLFacebookImagePickerController *)imagePicker fbLoginResult:(id)result error:(NSError *)error;
 @end
 
 
