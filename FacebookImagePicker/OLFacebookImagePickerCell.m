@@ -71,6 +71,8 @@ static UIColor *disabledColor;
         [self addSubview:self.imageView];
         [self addSubview:self.selectedDisabledOverlayView];
         [self addSubview:self.checkImageView];
+        
+        _shouldDisplaySelectedMark = YES;
     }
     
     return self;
@@ -83,8 +85,10 @@ static UIColor *disabledColor;
 
 - (void)setSelected:(BOOL)selected {
     [super setSelected:selected];
-    self.selectedDisabledOverlayView.hidden = !selected;
-    self.checkImageView.hidden = !selected;
+    if (self.shouldDisplaySelectedMark) {
+        self.selectedDisabledOverlayView.hidden = !selected;
+        self.checkImageView.hidden = !selected;
+    }
 }
 
 @end

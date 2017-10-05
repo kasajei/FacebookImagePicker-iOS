@@ -85,7 +85,7 @@ static const NSUInteger kAlbumPreviewImageSize = 78;
         self.title = @"Photos";
         self.albums = [[NSMutableArray alloc] init];
         _shouldDisplayLogoutButton = YES;
-        _shouldDisplayCancelButton = NO;
+        _shouldDisplayCancelButton = YES;
     }
     return self;
 }
@@ -93,12 +93,16 @@ static const NSUInteger kAlbumPreviewImageSize = 78;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(onButtonDoneClicked)];
     
-    if (self.shouldDisplayLogoutButton) {
-        [self addLogoutButtonAnimated:NO];
-    } else if (self.shouldDisplayCancelButton) {
-        [self addCancelButtonAnimated:NO];
+    if (self.isMultiselectEnabled) {
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(onButtonDoneClicked)];
+        if (self.shouldDisplayLogoutButton) {
+            [self addLogoutButtonAnimated:NO];
+        } else if (self.shouldDisplayCancelButton) {
+            [self addCancelButtonAnimated:NO];
+        }
+    }else{
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonClicked)];
     }
     
     self.albumRequestForNextPage = [[OLFacebookAlbumRequest alloc] init];

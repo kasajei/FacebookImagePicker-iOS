@@ -11,6 +11,8 @@
 @class OLFacebookImage;
 
 @interface OLFacebookImagePickerCell : UICollectionViewCell
+@property(nonatomic, assign) BOOL shouldDisplaySelectedMark;
+
 - (void)bind:(OLFacebookImage *)media;
 
 @end

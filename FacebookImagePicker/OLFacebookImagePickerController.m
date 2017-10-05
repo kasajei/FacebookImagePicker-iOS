@@ -25,7 +25,7 @@
     vc.view.backgroundColor = [UIColor whiteColor];
     if (self = [super initWithRootViewController:vc]) {
         _shouldDisplayLogoutButton = YES;
-        _shouldDisplayCancelButton = NO;
+        _shouldDisplayCancelButton = YES;
         _isMultiselectEnabled = YES;
         if ([FBSDKAccessToken currentAccessToken]){
             [self showAlbumList];
