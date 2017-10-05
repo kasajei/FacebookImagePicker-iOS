@@ -47,4 +47,7 @@
 
 @property (nonatomic, assign) BOOL isMultiselectEnabled;
 
+
+- (void)setNavigationBarTitle:(NSString *)title;
+
 @end

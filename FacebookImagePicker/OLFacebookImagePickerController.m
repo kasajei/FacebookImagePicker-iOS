@@ -25,7 +25,7 @@
     vc.view.backgroundColor = [UIColor whiteColor];
     if (self = [super initWithRootViewController:vc]) {
         _shouldDisplayLogoutButton = YES;
-        _shouldDisplayCancelButton = NO;
+        _shouldDisplayCancelButton = YES;
         _isMultiselectEnabled = YES;
         if ([FBSDKAccessToken currentAccessToken]){
             [self showAlbumList];
@@ -104,6 +104,10 @@
 {
     _shouldDisplayCancelButton = shouldDisplayCancelButton;
     self.albumVC.shouldDisplayCancelButton = self.shouldDisplayCancelButton;
+}
+
+-(void)setNavigationBarTitle:(NSString *)title{
+    self.albumVC.title = title;
 }
 
 #pragma mark - OLAlbumViewControllerDelegate methods

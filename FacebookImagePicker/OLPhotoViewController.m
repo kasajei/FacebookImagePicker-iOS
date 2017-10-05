@@ -49,7 +49,11 @@ static NSString *const kSupplementaryViewFooterReuseIdentifier = @"co.oceanlabs.
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(onButtonDoneClicked)];
+    if (self.isMultiselectEnabled){
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(onButtonDoneClicked)];
+    }else{
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(onButtonDoneClicked)];
+    }
     
     CGFloat itemSize = MIN([UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width)/4.0 - 1.0;
     
@@ -186,6 +190,7 @@ static NSString *const kSupplementaryViewFooterReuseIdentifier = @"co.oceanlabs.
     OLFacebookImagePickerCell *cell = (OLFacebookImagePickerCell *) [collectionView dequeueReusableCellWithReuseIdentifier:kImagePickerCellReuseIdentifier forIndexPath:indexPath];
     OLFacebookImage *image = [self.photos objectAtIndex:indexPath.item];
     [cell bind:image];
+    cell.shouldDisplaySelectedMark = self.isMultiselectEnabled;
     return cell;
 }
 
@@ -210,8 +215,12 @@ static NSString *const kSupplementaryViewFooterReuseIdentifier = @"co.oceanlabs.
 }
 
 -(void) collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    [self updateTitleWithSelectedIndexPaths:collectionView.indexPathsForSelectedItems];
     if ([self.delegate respondsToSelector:@selector(photoViewController:didSelectImage:)]){
         [self.delegate photoViewController:self didSelectImage:[self.photos objectAtIndex:indexPath.item]];
+    }
+    if (!self.isMultiselectEnabled) {
+        [self onButtonDoneClicked];
     }
 }
 
