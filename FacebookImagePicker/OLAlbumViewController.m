@@ -85,6 +85,7 @@ static const NSUInteger kAlbumPreviewImageSize = 78;
         self.title = @"Photos";
         self.albums = [[NSMutableArray alloc] init];
         _shouldDisplayLogoutButton = YES;
+        _shouldDisplayCancelButton = NO;
     }
     return self;
 }
@@ -96,8 +97,8 @@ static const NSUInteger kAlbumPreviewImageSize = 78;
     
     if (self.shouldDisplayLogoutButton) {
         [self addLogoutButtonAnimated:NO];
-    } else {
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonClicked)];
+    } else if (self.shouldDisplayCancelButton) {
+        [self addCancelButtonAnimated:NO];
     }
     
     self.albumRequestForNextPage = [[OLFacebookAlbumRequest alloc] init];
@@ -139,9 +140,27 @@ static const NSUInteger kAlbumPreviewImageSize = 78;
     }
 }
 
+- (void)setShouldDisplayCancelButton:(BOOL)shouldDisplayCancelButton{
+    
+    _shouldDisplayCancelButton = shouldDisplayCancelButton;
+    
+    if (shouldDisplayCancelButton && (self.navigationItem.leftBarButtonItem == nil)) {
+        [self addCancelButtonAnimated:YES];
+    }
+    else if (!shouldDisplayCancelButton && (self.navigationItem.leftBarButtonItem != nil)) {
+        [self.navigationItem setLeftBarButtonItem:nil animated:YES];
+    }
+}
+
 - (void)addLogoutButtonAnimated:(BOOL)animated
 {
     [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"Logout" style:UIBarButtonItemStylePlain target:self action:@selector(onButtonLogoutClicked)]
+                                     animated:animated];
+}
+
+- (void)addCancelButtonAnimated:(BOOL)animated
+{
+    [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonClicked)]
                                      animated:animated];
 }
 

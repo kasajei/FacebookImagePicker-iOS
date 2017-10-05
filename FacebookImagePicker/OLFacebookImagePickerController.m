@@ -25,6 +25,7 @@
     vc.view.backgroundColor = [UIColor whiteColor];
     if (self = [super initWithRootViewController:vc]) {
         _shouldDisplayLogoutButton = YES;
+        _shouldDisplayCancelButton = NO;
         _isMultiselectEnabled = YES;
         if ([FBSDKAccessToken currentAccessToken]){
             [self showAlbumList];
@@ -75,6 +76,7 @@
     self.albumVC.delegate = self;
     self.albumVC.isMultiselectEnabled = self.isMultiselectEnabled;
     self.albumVC.shouldDisplayLogoutButton = self.shouldDisplayLogoutButton;
+    self.albumVC.shouldDisplayCancelButton = self.shouldDisplayCancelButton;
     self.viewControllers = @[albumController];
 }
 
@@ -96,6 +98,12 @@
 {
     _shouldDisplayLogoutButton = shouldDisplayLogoutButton;
     self.albumVC.shouldDisplayLogoutButton = self.shouldDisplayLogoutButton;
+}
+
+- (void)setShouldDisplayCancelButton:(BOOL)shouldDisplayCancelButton
+{
+    _shouldDisplayCancelButton = shouldDisplayCancelButton;
+    self.albumVC.shouldDisplayCancelButton = self.shouldDisplayCancelButton;
 }
 
 #pragma mark - OLAlbumViewControllerDelegate methods
