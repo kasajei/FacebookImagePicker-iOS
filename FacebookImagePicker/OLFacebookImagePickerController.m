@@ -106,6 +106,10 @@
     self.albumVC.shouldDisplayCancelButton = self.shouldDisplayCancelButton;
 }
 
+-(void)setNavigationBarTitle:(NSString *)title{
+    self.albumVC.title = title;
+}
+
 #pragma mark - OLAlbumViewControllerDelegate methods
 
 - (void)albumViewControllerDoneClicked:(OLAlbumViewController *)albumController {
